@@ -30,31 +30,14 @@
             </li>
 
             <li class="nav-item">
-                <a href="{{ route('about') }}" class="nav-link">
-                    <i class="nav-icon far fa-address-card"></i>
+                <a href="{{ route('task.index') }}" class="nav-link">
+                    <i class="nav-icon fas fa-users"></i>
                     <p>
-                        {{ __('About us') }}
+                        Tasks
                     </p>
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-circle nav-icon"></i>
-                    <p>
-                        Two-level menu
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview" style="display: none;">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Child menu</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
         </ul>
     </nav>
     <!-- /.sidebar-menu -->
