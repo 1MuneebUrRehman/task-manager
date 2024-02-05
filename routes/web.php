@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\TaskFeedbackController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -48,5 +49,10 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('feedback',
         \App\Http\Controllers\TaskFeedbackController::class);
+
+    Route::get('/tasks/{task}/feedback/create',
+        [TaskFeedbackController::class, 'create'])->name('feedback.create');
+    Route::post('/tasks/{task}/feedback',
+        [TaskFeedbackController::class, 'store'])->name('feedback.store');
 
 });

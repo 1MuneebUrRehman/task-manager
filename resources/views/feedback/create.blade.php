@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">{{ __('Create Task') }}</h1>
+                    <h1 class="m-0">{{ __('Create Feedback') }}</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -16,85 +16,16 @@
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="card">
+            <h2>Provide Feedback for Task: {{ $task->title }}</h2>
 
-                        <form action="{{ route('task.store') }}" method="POST">
-                            @csrf
-
-                            <div class="card-body">
-                                <label for="title">Title</label>
-                                <div class="input-group mb-3">
-                                    <input type="text" name="title"
-                                           class="form-control @error('title') is-invalid @enderror"
-                                           placeholder="{{ __('Title') }}" value="{{ old('title') }}" required>
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-heading"></span>
-                                        </div>
-                                    </div>
-                                    @error('title')
-                                    <span class="error invalid-feedback">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-
-                                <label for="description">Description</label>
-                                <div class="input-group mb-3">
-                                    <textarea name="description"
-                                              class="form-control @error('description') is-invalid @enderror"
-                                              placeholder="{{ __('Description') }}"
-                                              required>{{ old('description') }}</textarea>
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-align-left"></span>
-                                        </div>
-                                    </div>
-                                    @error('description')
-                                    <span class="error invalid-feedback">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-
-                                <label for="status">Status</label>
-                                <div class="input-group mb-3">
-                                    <select name="status" class="form-control @error('status') is-invalid @enderror"
-                                            required>
-                                        <option value="To Do" {{ old('status') == 'To Do' ? 'selected' : '' }}>
-                                            To Do
-                                        </option>
-                                        <option
-                                                value="In Progress" {{ old('status') == 'In Progress' ? 'selected' : '' }}>
-                                            In Progress
-                                        </option>
-                                        <option value="Completed" {{ old('status') == 'Completed' ? 'selected' : '' }}>
-                                            Completed
-                                        </option>
-                                    </select>
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-check"></span>
-                                        </div>
-                                    </div>
-                                    @error('status')
-                                    <span class="error invalid-feedback">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-
-                            </div>
-
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">{{ __('Create Task') }}</button>
-                            </div>
-                        </form>
-                    </div>
+            <form action="{{ route('feedback.store', $task->id) }}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label for="comment">Comment:</label>
+                    <textarea name="comment" class="form-control" rows="3" required>{{ old('comment') }}</textarea>
                 </div>
-            </div>
+                <button type="submit" class="btn btn-primary">Submit Feedback</button>
+            </form>
             <!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
