@@ -4,7 +4,7 @@
     <div class="card-body login-card-body">
         <p class="login-box-msg">{{ __('Register') }}</p>
 
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ empty($route) ? route('register') : $route }}">
             @csrf
 
             <div class="input-group mb-3">

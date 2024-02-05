@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +20,10 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::get('register-as-manager',
+    [RegisterController::class, 'showRegistrationFormManager']);
+Route::post('register/manager',
+    [RegisterController::class, 'registerAsManager'])->name('register.manager');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
