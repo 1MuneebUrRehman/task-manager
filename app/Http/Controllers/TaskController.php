@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PermissionsEnum;
 use App\Models\Task;
 use App\Notifications\TaskUpdated;
 use Illuminate\Http\Request;
@@ -14,8 +15,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::paginate();
+        $this->authorize(PermissionsEnum::VIEW_TASKS);
 
+        $tasks = Task::paginate();
         return view('task.index', compact('tasks'));
     }
 
@@ -24,6 +26,8 @@ class TaskController extends Controller
      */
     public function create()
     {
+        $this->authorize(PermissionsEnum::CREATE_TASKS);
+
         return view('task.create');
     }
 
@@ -32,6 +36,8 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize(PermissionsEnum::CREATE_TASKS);
+
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
@@ -49,6 +55,8 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
+        $this->authorize(PermissionsEnum::VIEW_TASKS);
+
         return view('task.show', compact('task'));
     }
 
@@ -57,6 +65,8 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
+        $this->authorize(PermissionsEnum::EDIT_TASKS);
+
         return view('task.edit', compact('task'));
     }
 
@@ -65,6 +75,8 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
+        $this->authorize(PermissionsEnum::EDIT_TASKS);
+
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
@@ -84,6 +96,8 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
+        $this->authorize(PermissionsEnum::DELETE_TASKS);
+
         $task->delete();
 
         return redirect()->route('task.index')->with('success', 'Task deleted successfully.');

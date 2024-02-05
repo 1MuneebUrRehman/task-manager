@@ -8,10 +8,12 @@
                 <div class="col-sm-6">
                     <h1 class="m-0">Tasks</h1>
                 </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <!-- Add the "Create Task" button here -->
-                    <a href="{{ route('task.create') }}" class="btn btn-primary float-right">Create Task</a>
-                </div>
+                @can(\App\Enums\PermissionsEnum::CREATE_TASKS)
+                    <div class="col-sm-6">
+                        <!-- Add the "Create Task" button here -->
+                        <a href="{{ route('task.create') }}" class="btn btn-primary float-right">Create Task</a>
+                    </div>
+                @endcan
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
 
@@ -42,17 +44,24 @@
                                         <td>{{ $task->description }}</td>
                                         <td>{{ $task->status }}</td>
                                         <td>
-                                            <!-- Edit button -->
-                                            <a class="btn btn-info btn-sm" href="{{ route('task.edit', $task->id) }}">Edit</a>
+                                            @can(\App\Enums\PermissionsEnum::EDIT_TASKS)
+                                                <!-- Edit button -->
+                                                <a class="btn btn-info btn-sm"
+                                                   href="{{ route('task.edit', $task->id) }}">Edit</a>
+                                            @endcan
 
-                                            <!-- Preview button (if needed) -->
-                                            <a class="btn btn-success btn-sm"
-                                               href="{{ route('task.show', $task->id) }}">Preview</a>
+                                            @can(\App\Enums\PermissionsEnum::VIEW_TASKS)
+                                                <!-- Preview button (if needed) -->
+                                                <a class="btn btn-success btn-sm"
+                                                   href="{{ route('task.show', $task->id) }}">Preview</a>
+                                            @endcan
 
-                                            <!-- Delete button -->
-                                            <button class="btn btn-danger btn-sm" data-toggle="modal"
-                                                    data-target="#deleteModal{{ $task->id }}">Delete
-                                            </button>
+                                            @can(\App\Enums\PermissionsEnum::DELETE_TASKS)
+                                                <!-- Delete button -->
+                                                <button class="btn btn-danger btn-sm" data-toggle="modal"
+                                                        data-target="#deleteModal{{ $task->id }}">Delete
+                                                </button>
+                                            @endcan
                                         </td>
                                     </tr>
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Enums\RolesNameEnum;
+use App\Enums\RolesEnum;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -65,7 +65,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $role = Role::where('name', RolesNameEnum::Manager)->first();
+        $role = Role::where('name', RolesEnum::MANAGER)->first();
 
         return User::create([
             'name' => $data['name'],
