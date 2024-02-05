@@ -8,8 +8,13 @@
                 <div class="col-sm-6">
                     <h1 class="m-0">Tasks</h1>
                 </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <!-- Add the "Create Task" button here -->
+                    <a href="{{ route('task.create') }}" class="btn btn-primary float-right">Create Task</a>
+                </div>
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
+
     </div>
     <!-- /.content-header -->
 

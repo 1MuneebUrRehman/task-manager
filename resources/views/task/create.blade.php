@@ -20,17 +20,15 @@
                 <div class="col-lg-6">
                     <div class="card">
 
-                        <form action="{{ route('task.store', $task->id) }}" method="POST">
+                        <form action="{{ route('task.store') }}" method="POST">
                             @csrf
-                            @method('PUT')
 
                             <div class="card-body">
                                 <label for="title">Title</label>
                                 <div class="input-group mb-3">
                                     <input type="text" name="title"
                                            class="form-control @error('title') is-invalid @enderror"
-                                           placeholder="{{ __('Title') }}" value="{{ old('title', $task->title) }}"
-                                           required>
+                                           placeholder="{{ __('Title') }}" value="{{ old('title') }}" required>
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-heading"></span>
@@ -48,7 +46,7 @@
                                     <textarea name="description"
                                               class="form-control @error('description') is-invalid @enderror"
                                               placeholder="{{ __('Description') }}"
-                                              required>{{ old('description', $task->description) }}</textarea>
+                                              required>{{ old('description') }}</textarea>
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-align-left"></span>
@@ -65,16 +63,14 @@
                                 <div class="input-group mb-3">
                                     <select name="status" class="form-control @error('status') is-invalid @enderror"
                                             required>
-                                        <option
-                                            value="To Do" {{ old('status', $task->status) == 'To Do' ? 'selected' : '' }}>
+                                        <option value="To Do" {{ old('status') == 'To Do' ? 'selected' : '' }}>
                                             To Do
                                         </option>
                                         <option
-                                            value="In Progress" {{ old('status', $task->status) == 'In Progress' ? 'selected' : '' }}>
-                                            Pending
+                                            value="In Progress" {{ old('status') == 'In Progress' ? 'selected' : '' }}>
+                                            In Progress
                                         </option>
-                                        <option
-                                            value="Completed" {{ old('status', $task->status) == 'Completed' ? 'selected' : '' }}>
+                                        <option value="Completed" {{ old('status') == 'Completed' ? 'selected' : '' }}>
                                             Completed
                                         </option>
                                     </select>
