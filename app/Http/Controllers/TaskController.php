@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Notifications\TaskUpdated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -71,6 +72,9 @@ class TaskController extends Controller
         ]);
 
         $task->update($validatedData);
+
+        // Dispatch the TaskUpdated notification to trigger the webhook
+        $task->notify(new TaskUpdated($task));
 
         return redirect()->route('task.index')->with('success', 'Task updated successfully.');
     }
