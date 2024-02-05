@@ -45,4 +45,8 @@ Route::middleware('auth')->group(function () {
     Route::put('role/{id}/update',
         [\App\Http\Controllers\RoleController::class, 'update'])
         ->name('role.update');
+
+    Route::resource('feedback',
+        \App\Http\Controllers\TaskFeedbackController::class);
+
 });
