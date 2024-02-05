@@ -30,4 +30,13 @@ Route::middleware('auth')->group(function () {
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 
     Route::resource('task', \App\Http\Controllers\TaskController::class);
+
+    Route::get('roles', [\App\Http\Controllers\RoleController::class, 'index'])
+        ->name('roles.index');
+    Route::get('role/{id}/show',
+        [\App\Http\Controllers\RoleController::class, 'show'])
+        ->name('role.show');
+    Route::put('role/{id}/update',
+        [\App\Http\Controllers\RoleController::class, 'update'])
+        ->name('role.update');
 });

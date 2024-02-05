@@ -21,6 +21,15 @@
             </li>
 
             <li class="nav-item">
+                <a href="{{ route('roles.index') }}" class="nav-link">
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                        Roles
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a href="{{ route('task.index') }}" class="nav-link">
                     <i class="nav-icon fas fa-users"></i>
                     <p>
