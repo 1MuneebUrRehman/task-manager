@@ -6,7 +6,14 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">{{ __('Edit Task') }}</h1>
+                    <h1>
+                        <span class="text-capitalize">Edit Task</span>
+                        <a href="{{ route('task.index') }}" class="ml-3 text-sm">
+                            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                            Back to all
+                            <span>tasks</span>
+                        </a>
+                    </h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
