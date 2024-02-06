@@ -89,7 +89,7 @@
                         <div class="card-header">
                             <h3>Feedbacks</h3>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" id="feedback-list">
                             @if($task->feedbacks && $task->feedbacks->count() > 0)
                                 <ul class="list-group">
                                     @foreach($task->feedbacks as $feedback)
@@ -101,9 +101,8 @@
                                     @endforeach
                                 </ul>
                             @else
-                                <p>No feedback available
-                                    @endif
-                                </p>
+                                <p>No feedback available</p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -116,7 +115,7 @@
                             <h3>Provide Feedback</h3>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('feedback.store', $task->id) }}" method="POST">
+                            <form id="feedback-form" action="{{ route('feedback.store', $task->id) }}" method="POST">
                                 @csrf
                                 <div class="form-group">
                                     <label for="feedback">Your Feedback:</label>
@@ -161,4 +160,21 @@
         </div>
     @endcan
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#feedback-form').submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        $('#feedback-list').html(response);
+                        $('#feedback-form')[0].reset();
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

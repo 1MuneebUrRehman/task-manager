@@ -22,8 +22,7 @@ class TaskFeedbackController extends Controller
             'comment' => $request->input('feedback'),
         ]);
 
-        return redirect()->route('task.show', $task->id)
-            ->with('success', 'Feedback added successfully.');
+        return view('feedback.feedback_list')->with('task', $task);
     }
 
 }
