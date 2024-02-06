@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['index', 'show']]);
-    }
     /**
      * Display a listing of the resource.
      */
@@ -22,7 +17,7 @@ class TaskController extends Controller
     {
         $this->authorize(PermissionsEnum::VIEW_TASKS);
 
-        $tasks = Task::paginate();
+        $tasks = Task::all();
         return view('task.index', compact('tasks'));
     }
 
