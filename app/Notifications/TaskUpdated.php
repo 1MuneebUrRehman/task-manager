@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -37,6 +36,7 @@ class TaskUpdated extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
+            ->subject('Task Updated')
             ->line('The task has been updated.')
             ->action('View Task', route('tasks.show', $this->task->id))
             ->line('Thank you for using our application!');

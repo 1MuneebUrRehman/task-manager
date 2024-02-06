@@ -89,7 +89,7 @@ class TaskController extends Controller
         // Trigger the event
         event(new TaskUpdateEvent($task));
         // Dispatch the TaskUpdated notification to trigger the webhook
-        $task->notify(new TaskUpdated($task));
+        Auth::user()->notify(new TaskUpdated($task));
 
         return redirect()->route('task.index')->with('success', 'Task updated successfully.');
     }

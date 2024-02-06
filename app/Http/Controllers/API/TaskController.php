@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class TaskController extends Controller
+class TaskController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +18,7 @@ class TaskController extends Controller
     public function index(): JsonResponse
     {
         $tasks = Task::all();
-
-        return response()->json(['tasks' => $tasks], 200);
+        return $this->sendResponse($tasks, 'Tasks retrieved successfully.');
     }
 
     /**
@@ -34,7 +33,8 @@ class TaskController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
+            return $this->sendError('Unauthorised.',
+                ['error' => $validator->errors()]);
         }
 
         $validatedData = $validator->validated();
@@ -42,9 +42,8 @@ class TaskController extends Controller
 
         $task = Task::create($validatedData);
 
-        return response()->json([
-            'task' => $task, 'message' => 'Task created successfully.'
-        ], 201);
+        return $this->sendResponse($task, 'Task created successfully.');
+
     }
 
     /**
@@ -52,7 +51,7 @@ class TaskController extends Controller
      */
     public function show(Task $task): JsonResponse
     {
-        return response()->json(['task' => $task], 200);
+        return $this->sendResponse($task, '');
     }
 
     /**
@@ -76,9 +75,7 @@ class TaskController extends Controller
         // Dispatch the TaskUpdated notification to trigger the webhook
         $task->notify(new TaskUpdated($task));
 
-        return response()->json([
-            'task' => $task, 'message' => 'Task updated successfully.'
-        ], 200);
+        return $this->sendResponse($task, 'Task updated successfully.');
     }
 
     /**
@@ -88,7 +85,6 @@ class TaskController extends Controller
     {
         $task->delete();
 
-        return response()->json(['message' => 'Task deleted successfully.'],
-            200);
+        return $this->sendResponse([], 'Task deleted successfully.');
     }
 }

@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 
-class RegisterController extends BaseController
+class AuthController extends BaseController
 {
     /**
      * Register api
@@ -30,7 +30,7 @@ class RegisterController extends BaseController
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
-        $success['token'] = $user->createToken('MyApp');
+        $success['token'] = $user->createToken('MyApp')->accessToken;
         $success['name'] = $user->name;
 
         return $this->sendResponse($success, 'User register successfully.');
@@ -48,13 +48,29 @@ class RegisterController extends BaseController
         ])
         ) {
             $user = Auth::user();
-            $success['token'] = $user->createToken('MyApp');
+            $success['token'] = $user->createToken('MyApp')->accessToken;
             $success['name'] = $user->name;
 
             return $this->sendResponse($success, 'User login successfully.');
-        } else {
-            return $this->sendError('Unauthorised.',
-                ['error' => 'Unauthorised']);
         }
+
+        return $this->sendError('Unauthorised.',
+            ['error' => 'Unauthorised']);
+    }
+
+    /**
+     * Logout the user (Revoke the token).
+     *
+     * @param  Request  $request
+     *
+     * @return JsonResponse
+     */
+    public function logout(Request $request)
+    {
+        $request->user()->token()->revoke();
+
+        return response()->json([
+            'message' => 'Successfully logged out'
+        ]);
     }
 }
