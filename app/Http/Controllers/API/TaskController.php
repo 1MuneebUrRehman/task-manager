@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Events\TaskUpdateEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Task;
 use App\Notifications\TaskUpdated;
@@ -96,8 +97,10 @@ class TaskController extends BaseController
         $validatedData = $validator->validated();
         $task->update($validatedData);
 
+        // Trigger the event
+        event(new TaskUpdateEvent($task));
         // Dispatch the TaskUpdated notification to trigger the webhook
-        $task->notify(new TaskUpdated($task));
+        Auth::user()->notify(new TaskUpdated($task));
 
         // Return success response
         return $this->sendResponse($task, 'Task updated successfully.');
