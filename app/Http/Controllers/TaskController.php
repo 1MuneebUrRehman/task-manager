@@ -9,10 +9,20 @@ use App\Notifications\TaskUpdated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class TaskController
+ *
+ * This class manages CRUD operations for tasks, including displaying, creating, updating, and deleting tasks.
+ * It extends the Laravel Controller class.
+ *
+ * @package App\Http\Controllers
+ */
 class TaskController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of tasks.
+     *
+     * @return \Illuminate\Contracts\View\View A view containing a listing of tasks.
      */
     public function index()
     {
@@ -23,7 +33,9 @@ class TaskController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new task.
+     *
+     * @return \Illuminate\Contracts\View\View A view for creating a new task.
      */
     public function create()
     {
@@ -33,7 +45,11 @@ class TaskController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created task in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request  The HTTP request containing task data.
+     *
+     * @return \Illuminate\Http\RedirectResponse A redirect response indicating success or failure of task creation.
      */
     public function store(Request $request)
     {
@@ -52,7 +68,10 @@ class TaskController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified task.
+     *
+     * @param  \App\Models\Task  $task  The task instance to be displayed.
+     * @return \Illuminate\Contracts\View\View A view containing details of the specified task.
      */
     public function show(Task $task)
     {
@@ -62,7 +81,10 @@ class TaskController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified task.
+     *
+     * @param  \App\Models\Task  $task  The task instance to be edited.
+     * @return \Illuminate\Contracts\View\View A view for editing the specified task.
      */
     public function edit(Task $task)
     {
@@ -72,7 +94,11 @@ class TaskController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified task in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request  The HTTP request containing updated task data.
+     * @param  \App\Models\Task  $task  The task instance to be updated.
+     * @return \Illuminate\Http\RedirectResponse A redirect response indicating success or failure of task update.
      */
     public function update(Request $request, Task $task)
     {
@@ -95,7 +121,10 @@ class TaskController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified task from storage.
+     *
+     * @param  \App\Models\Task  $task  The task instance to be deleted.
+     * @return \Illuminate\Http\RedirectResponse A redirect response indicating success or failure of task deletion.
      */
     public function destroy(Task $task)
     {
