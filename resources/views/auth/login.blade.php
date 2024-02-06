@@ -52,8 +52,12 @@
             </div>
         </form>
 
+        <p class="mb-1">
+            <a href="{{ route('register') }}" class="text-center">{{ __('Register') }}</a>
+        </p>
+
         @if (Route::has('password.request'))
-            <p class="mb-1">
+            <p class="mt-2 mb-1">
                 <a href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
             </p>
         @endif

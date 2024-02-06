@@ -70,5 +70,9 @@
                 </div>
             </div>
         </form>
+
+        <p class="mt-3 mb-1">
+            <a href="{{ route('login') }}">{{ __('Already have an account? Login') }}</a>
+        </p>
     </div>
 @endsection
