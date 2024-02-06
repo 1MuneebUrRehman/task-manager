@@ -17,7 +17,7 @@ class TaskController extends Controller
     {
         $this->authorize(PermissionsEnum::VIEW_TASKS);
 
-        $tasks = Task::all();
+        $tasks = Task::paginate(5);
         return view('task.index', compact('tasks'));
     }
 

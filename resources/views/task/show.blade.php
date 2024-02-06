@@ -81,6 +81,54 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Feedback Listing Section -->
+            <div class="row mt-4">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Feedbacks</h3>
+                        </div>
+                        <div class="card-body">
+                            @if($task->feedbacks && $task->feedbacks->count() > 0)
+                                <ul class="list-group">
+                                    @foreach($task->feedbacks as $feedback)
+                                        <li class="list-group-item">
+                                            <strong>User:</strong> {{ $feedback->task->user->name }}
+                                            <br>
+                                            <strong>Feedback:</strong> {{ $feedback->comment }}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                <p>No feedback available
+                                    @endif
+                                </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Feedback Form Section -->
+            <div class="row mt-4">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Provide Feedback</h3>
+                        </div>
+                        <div class="card-body">
+                            <form action="{{ route('feedback.store', $task->id) }}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="feedback">Your Feedback:</label>
+                                    <textarea name="feedback" id="feedback" class="form-control" rows="3"
+                                              required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
