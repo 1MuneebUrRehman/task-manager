@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\PermissionsEnum;
+use App\Events\TaskUpdateEvent;
 use App\Models\Task;
 use App\Notifications\TaskUpdated;
 use Illuminate\Http\Request;
@@ -85,6 +86,8 @@ class TaskController extends Controller
 
         $task->update($validatedData);
 
+        // Trigger the event
+        event(new TaskUpdateEvent($task));
         // Dispatch the TaskUpdated notification to trigger the webhook
         $task->notify(new TaskUpdated($task));
 
